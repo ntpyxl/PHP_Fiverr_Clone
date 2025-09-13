@@ -1,4 +1,4 @@
-<?php  
+<?php
 require_once '../classloader.php';
 
 if (isset($_POST['insertNewUserBtn'])) {
@@ -16,28 +16,22 @@ if (isset($_POST['insertNewUserBtn'])) {
 
 				if ($userObj->registerUser($username, $email, $password, $contact_number)) {
 					header("Location: ../login.php");
-				}
-
-				else {
+				} else {
 					$_SESSION['message'] = "An error occured with the query!";
 					$_SESSION['status'] = '400';
 					header("Location: ../register.php");
 				}
-			}
-
-			else {
+			} else {
 				$_SESSION['message'] = $username . " as username is already taken";
 				$_SESSION['status'] = '400';
 				header("Location: ../register.php");
 			}
-		}
-		else {
+		} else {
 			$_SESSION['message'] = "Please make sure both passwords are equal";
 			$_SESSION['status'] = '400';
 			header("Location: ../register.php");
 		}
-	}
-	else {
+	} else {
 		$_SESSION['message'] = "Please make sure there are no empty input fields";
 		$_SESSION['status'] = '400';
 		header("Location: ../register.php");
@@ -52,20 +46,16 @@ if (isset($_POST['loginUserBtn'])) {
 
 		if ($userObj->loginUser($email, $password)) {
 			header("Location: ../index.php");
-		}
-		else {
+		} else {
 			$_SESSION['message'] = "Username/password invalid";
 			$_SESSION['status'] = "400";
 			header("Location: ../login.php");
 		}
-	}
-
-	else {
+	} else {
 		$_SESSION['message'] = "Please make sure there are no empty input fields";
 		$_SESSION['status'] = '400';
 		header("Location: ../login.php");
 	}
-
 }
 
 if (isset($_GET['logoutUserBtn'])) {
@@ -85,8 +75,23 @@ if (isset($_POST['insertOfferBtn'])) {
 	$user_id = $_SESSION['user_id'];
 	$proposal_id = $_POST['proposal_id'];
 	$description = htmlspecialchars($_POST['description']);
-	if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
-		header("Location: ../index.php");
+
+	$isAlreadyOffered = false;
+	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id);
+	foreach ($offersInProposal as $offer) {
+		if ($user_id == $offer['user_id']) {
+			$isAlreadyOffered = true;
+			echo "<script>
+					alert('You already made an offer!');
+					window.location.href = '../index.php';
+				</script>";
+		}
+	}
+
+	if (!$isAlreadyOffered) {
+		if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
+			header("Location: ../index.php");
+		}
 	}
 }
 
@@ -108,4 +113,3 @@ if (isset($_POST['deleteOfferBtn'])) {
 		header("Location: ../index.php");
 	}
 }
-
