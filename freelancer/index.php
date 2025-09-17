@@ -22,89 +22,87 @@ if (!$userObj->isLoggedIn()) {
     <?php include '../components/navbar.php'; ?>
 
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-6">
-            Hello there and welcome!
-            <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>.
-            Add Proposal Here!
-        </h1>
-
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <!-- Add Proposal Form -->
-            <div class="md:col-span-5">
-                <div class="bg-white rounded-lg shadow p-6">
-                    <form action="core/handleForms.php" method="POST" enctype="multipart/form-data" class="space-y-4">
-                        <?php if (isset($_SESSION['message'], $_SESSION['status'])): ?>
-                            <p class="font-semibold 
-                                <?php echo $_SESSION['status'] == '200' ? 'text-green-600' : 'text-red-600'; ?>">
-                                <?php echo $_SESSION['message']; ?>
-                            </p>
-                            <?php unset($_SESSION['message'], $_SESSION['status']); ?>
-                        <?php endif; ?>
+            <div class="col-span-1 md:col-span-5">
+                <h1 class="text-3xl font-bold text-center mb-6">
+                    Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+                </h1>
 
-                        <h2 class="text-xl font-bold mb-4">Add Proposal Here!</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <form action="../core/handleForms.php" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <h2 class="text-xl font-bold mb-4">Create a Job Proposal Here!</h2>
 
                         <div>
                             <label class="block text-sm font-medium mb-1">Description</label>
                             <input type="text" name="description" required
+                                placeholder="What product/service will you provide?"
                                 class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium mb-1">Minimum Price</label>
-                            <input type="number" name="min_price" required
-                                class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Minimum Price</label>
+                                <input type="number" name="min_price" required
+                                    placeholder="Lowest you'd accept"
+                                    class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Maximum Price</label>
+                                <input type="number" name="max_price" required
+                                    placeholder="Highest you'd accept"
+                                    class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                            </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium mb-1">Max Price</label>
-                            <input type="number" name="max_price" required
-                                class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
-                        </div>
 
                         <div>
                             <label class="block text-sm font-medium mb-1">Image</label>
                             <input type="file" name="image" required
-                                class="w-full border rounded px-3 py-2">
+                                class="w-full border rounded px-3 py-2 file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer" />
                         </div>
 
-                        <button type="submit" name="insertNewProposalBtn"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded float-right">
-                            Submit Proposal
-                        </button>
+
+                        <div class="flex justify-end">
+                            <button type="submit" name="insertNewProposalBtn"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer">
+                                Submit Proposal
+                            </button>
+                        </div>
+
+                        <?php if (isset($_SESSION['message'], $_SESSION['status'])): ?>
+                            <p class="font-semibold 
+                        <?php echo $_SESSION['status'] == '200' ? 'text-green-600' : 'text-red-600'; ?>">
+                                <?php echo $_SESSION['message']; ?>
+                            </p>
+                            <?php unset($_SESSION['message'], $_SESSION['status']); ?>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
 
             <!-- Proposals List -->
-            <div class="md:col-span-7">
+            <div class="col-span-1 md:col-span-7">
                 <?php $getProposals = $proposalObj->getProposals(); ?>
                 <div class="space-y-6">
                     <?php foreach ($getProposals as $proposal) { ?>
                         <div class="bg-white rounded-lg shadow p-6">
                             <h2 class="text-xl font-semibold">
-                                <a href="other_profile_view.php?user_id=<?php echo $proposal['user_id']; ?>"
+                                <a href="../visit_profile.php?user_id=<?php echo $proposal['user_id']; ?>"
                                     class="text-blue-600 hover:underline">
-                                    <?php echo $proposal['username']; ?>
-                                </a>
+                                    <?php echo $proposal['username']; ?></a>
+                                <span class="text-sm italic text-gray-500"> proposed on <?php echo $proposal['proposals_date_added']; ?></span>
                             </h2>
 
                             <img src="<?php echo '../images/' . $proposal['image']; ?>"
                                 alt="Proposal Image"
-                                class="w-full h-64 object-cover rounded mt-4">
-
-                            <p class="text-sm text-gray-500 mt-3">
-                                <i><?php echo $proposal['proposals_date_added']; ?></i>
-                            </p>
+                                class="w-full h-80 object-contain border border-gray-400 rounded mt-4">
 
                             <p class="mt-2 text-gray-700"><?php echo $proposal['description']; ?></p>
 
                             <h4 class="mt-3 font-semibold text-gray-800">
-                                <i><?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
+                                <i>Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
                             </h4>
-
-                            <div class="mt-4 text-right">
-                                <a href="#" class="text-blue-500 hover:underline">Check out services</a>
-                            </div>
                         </div>
                     <?php } ?>
                 </div>

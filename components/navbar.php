@@ -19,7 +19,7 @@ $navbarTitle = [
             <?php echo $navbarTitle[$dir] ?? "FiClone"; ?>
         </a>
 
-
+        <!-- TODO: Button not appearing regardless of screen size -->
         <!-- Mobile Toggle -->
         <button id="menu-toggle" class="lg:hidden p-2 focus:outline-none">
             <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -30,23 +30,26 @@ $navbarTitle = [
         </button>
     </div>
 
-    <!-- Menu -->
     <div id="menu" class="hidden lg:flex flex-col lg:flex-row mt-4 lg:mt-0 space-y-2 lg:space-y-0 lg:space-x-6">
-        <a href="project_offers_submitted.php" class="hover:text-gray-300">
-            Project Offers Submitted
-        </a> <!-- #TODO: Client Only Button -->
-
-        <a href="profile.php" class="hover:text-gray-300">
+        <a href="../profile.php" class="hover:text-gray-300">
             Profile
         </a>
 
-        <a href="your_proposals.php" class="hover:text-gray-300">
-            Your Proposals
-        </a> <!-- #TODO: Freelancer Only Button -->
+        <?php if ($_SESSION['user_role'] == "Client") { ?>
+            <a href="<?php echo BASE_URL; ?>client/client_sent_offers.php" class="hover:text-gray-300">
+                Project Offers Submitted
+            </a>
+        <?php } ?>
 
-        <a href="offers_from_clients.php" class="hover:text-gray-300">
-            Offers From Clients
-        </a> <!-- #TODO: Freelancer Only Button -->
+        <?php if ($_SESSION['user_role'] == "Freelancer") { ?>
+            <a href="freelancer_proposals.php" class="hover:text-gray-300">
+                Your Proposals
+            </a>
+
+            <a href="client_offers.php" class="hover:text-gray-300">
+                Offers From Clients
+            </a>
+        <?php } ?>
 
         <a href="<?php echo BASE_URL; ?>core/handleForms.php?logoutUserBtn=1" class="hover:text-red-400">
             Logout

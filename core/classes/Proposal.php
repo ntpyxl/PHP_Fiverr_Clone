@@ -15,7 +15,7 @@ class Proposal extends Database
      */
     public function createProposal($user_id, $description, $image, $min_price, $max_price)
     {
-        $sql = "INSERT INTO Proposals (user_id, description, image, min_price, max_price) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Proposals (proposer_id, description, image, min_price, max_price) VALUES (?, ?, ?, ?, ?)";
         return $this->executeNonQuery($sql, [$user_id, $description, $image, $min_price, $max_price]);
     }
 

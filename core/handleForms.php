@@ -101,13 +101,13 @@ if (isset($_POST['insertNewProposalBtn'])) {
 
 	// Specify path
 	// TODO: IF images/ DIR DOES NOT EXIST, IT WILL RETURN ERROR.
-	$folder = "../../images/" . $imageName;
+	$folder = "../images/" . $imageName;
 
 	// Move file to the specified path 
 	if (move_uploaded_file($tempFileName, $folder)) {
 		if ($proposalObj->createProposal($user_id, $description, $imageName, $min_price, $max_price)) {
 			$_SESSION['status'] = "200";
-			$_SESSION['message'] = "Proposal saved successfully!";
+			$_SESSION['message'] = "Proposal created successfully!";
 			header("Location: ../index.php");
 		}
 	}
