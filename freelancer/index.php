@@ -25,7 +25,7 @@ if (!$userObj->isLoggedIn()) {
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div class="col-span-1 md:col-span-5">
                 <h1 class="text-3xl font-bold text-center mb-6">
-                    Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+                    <p>Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!</p>
                 </h1>
 
                 <div class="bg-white rounded-lg shadow p-6">
@@ -81,33 +81,32 @@ if (!$userObj->isLoggedIn()) {
                 </div>
             </div>
 
-            <!-- Proposals List -->
-            <div class="col-span-1 md:col-span-7">
-                <?php $getProposals = $proposalObj->getProposals(); ?>
-                <div class="space-y-6">
-                    <?php foreach ($getProposals as $proposal) { ?>
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-xl font-semibold">
-                                <a href="../visit_profile.php?user_id=<?php echo $proposal['user_id']; ?>"
-                                    class="text-blue-600 hover:underline">
-                                    <?php echo $proposal['username']; ?></a>
-                                <span class="text-sm italic text-gray-500"> proposed on <?php echo $proposal['proposals_date_added']; ?></span>
-                            </h2>
+            <div class="col-span-1 md:col-span-7 space-y-6">
+                <?php
+                $getProposals = $proposalObj->getProposals();
+                foreach ($getProposals as $proposal) { ?>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-semibold">
+                            <a href="../visit_profile.php?user_id=<?php echo $proposal['user_id']; ?>"
+                                class="text-blue-600 hover:underline">
+                                <?php echo $proposal['username']; ?></a>
+                            <span class="text-sm italic text-gray-500"> proposed on <?php echo date("F d, Y, h:i A", strtotime($proposal['proposals_date_added'])); ?></span>
+                        </h2>
 
-                            <img src="<?php echo '../images/' . $proposal['image']; ?>"
-                                alt="Proposal Image"
-                                class="w-full h-80 object-contain border border-gray-400 rounded mt-4">
+                        <img src="<?php echo '../images/' . $proposal['image']; ?>"
+                            alt="Proposal Image"
+                            class="w-full h-80 object-contain border border-gray-400 rounded mt-4">
 
-                            <p class="mt-2 text-gray-700"><?php echo $proposal['description']; ?></p>
+                        <p class="mt-2 text-gray-700"><?php echo $proposal['description']; ?></p>
 
-                            <h4 class="mt-3 font-semibold text-gray-800">
-                                <i>Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
-                            </h4>
-                        </div>
-                    <?php } ?>
-                </div>
+                        <h4 class="mt-3 font-semibold text-gray-800">
+                            <i>Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
+                        </h4>
+                    </div>
+                <?php } ?>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

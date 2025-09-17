@@ -108,7 +108,7 @@ if (isset($_POST['insertNewProposalBtn'])) {
 		if ($proposalObj->createProposal($user_id, $description, $imageName, $min_price, $max_price)) {
 			$_SESSION['status'] = "200";
 			$_SESSION['message'] = "Proposal created successfully!";
-			header("Location: ../index.php");
+			header("Location: ../freelancer/");
 		}
 	}
 }
@@ -121,7 +121,7 @@ if (isset($_POST['updateProposalBtn'])) {
 	if ($proposalObj->updateProposal($description, $min_price, $max_price, $proposal_id)) {
 		$_SESSION['status'] = "200";
 		$_SESSION['message'] = "Proposal updated successfully!";
-		header("Location: ../your_proposals.php");
+		header("Location: ../freelancer/freelancer_proposals.php");
 	}
 }
 
@@ -131,11 +131,11 @@ if (isset($_POST['deleteProposalBtn'])) {
 
 	if ($proposalObj->deleteProposal($proposal_id)) {
 		// Delete file inside images folder
-		unlink("../../images/" . $image);
+		unlink("../images/" . $image);
 
 		$_SESSION['status'] = "200";
 		$_SESSION['message'] = "Proposal deleted successfully!";
-		header("Location: ../your_proposals.php");
+		header("Location: ../freelancer/freelancer_proposals.php");
 	}
 }
 
@@ -145,13 +145,14 @@ if (isset($_POST['insertOfferBtn'])) {
 	$description = htmlspecialchars($_POST['description']);
 
 	$isAlreadyOffered = false;
-	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id);
+	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id); // TODO: Maybe create new function just to not return everything?
 	foreach ($offersInProposal as $offer) {
 		if ($user_id == $offer['user_id']) {
 			$isAlreadyOffered = true;
 			echo "<script>
 					alert('You already made an offer!');
 					window.location.href = '../index.php';
+					// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 				</script>";
 		}
 	}
@@ -159,6 +160,7 @@ if (isset($_POST['insertOfferBtn'])) {
 	if (!$isAlreadyOffered) {
 		if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
 			header("Location: ../index.php");
+			// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 		}
 	}
 }
@@ -170,6 +172,7 @@ if (isset($_POST['updateOfferBtn'])) {
 		$_SESSION['message'] = "Offer updated successfully!";
 		$_SESSION['status'] = '200';
 		header("Location: ../index.php");
+		// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 	}
 }
 
@@ -179,5 +182,6 @@ if (isset($_POST['deleteOfferBtn'])) {
 		$_SESSION['message'] = "Offer deleted successfully!";
 		$_SESSION['status'] = '200';
 		header("Location: ../index.php");
+		// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 	}
 }
