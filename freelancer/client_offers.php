@@ -22,14 +22,16 @@ if (!$userObj->isLoggedIn()) {
     <?php include '../components/navbar.php'; ?>
 
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center">Hello there and welcome!</h1>
+        <h1 class="text-3xl font-bold text-center">
+            Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+            Here are all the offers for your proposals.
+        </h1>
 
         <?php $getProposalsByUserID = $proposalObj->getProposalsByUserID($_SESSION['user_id']); ?>
         <div class="space-y-6 mt-6">
             <?php foreach ($getProposalsByUserID as $proposal) { ?>
                 <div class="bg-white shadow rounded-lg p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Proposal Info -->
                         <div>
                             <h2 class="text-xl font-semibold mb-2">
                                 <a href="#" class="text-blue-600 hover:underline">
@@ -38,22 +40,17 @@ if (!$userObj->isLoggedIn()) {
                             </h2>
                             <img src="<?php echo '../images/' . $proposal['image']; ?>"
                                 alt="Proposal Image"
-                                class="w-full h-64 object-cover rounded mb-4">
+                                class="w-full h-64 border border-gray-400 object-contain rounded mb-4">
 
                             <p class="text-gray-700 mb-4">
                                 <?php echo $proposal['description']; ?>
                             </p>
 
                             <h4 class="text-lg font-semibold text-gray-800">
-                                <i><?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
+                                <i>Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
                             </h4>
-
-                            <div class="mt-4 text-right">
-                                <a href="#" class="text-blue-500 hover:underline">Check out services</a>
-                            </div>
                         </div>
 
-                        <!-- Offers Section -->
                         <div class="bg-gray-50 border rounded-lg shadow-sm">
                             <div class="border-b px-4 py-2">
                                 <h2 class="text-lg font-bold">All Offers</h2>
@@ -66,7 +63,7 @@ if (!$userObj->isLoggedIn()) {
                                             <?php echo $offer['username']; ?>
                                             <span class="text-blue-600">( <?php echo $offer['contact_number']; ?> )</span>
                                         </h4>
-                                        <small class="text-gray-500"><i><?php echo $offer['offer_date_added']; ?></i></small>
+                                        <small class="text-gray-500"><i><?php echo date("F d, Y, h:i A", strtotime($offer['offer_date_added'])); ?></i></small>
                                         <p class="text-gray-700 mt-1"><?php echo $offer['description']; ?></p>
                                     </div>
                                 <?php } ?>

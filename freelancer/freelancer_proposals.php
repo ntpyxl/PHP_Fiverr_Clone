@@ -24,10 +24,8 @@ if (!$userObj->isLoggedIn()) {
     <div class="max-w-7xl mx-auto px-4 py-8">
 
         <h1 class="text-3xl font-bold text-center mb-6">
-            <p>
-                Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
-                Here are your posted proposals.
-            </p>
+            Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+            Here are your posted proposals.
         </h1>
 
         <?php if (isset($_SESSION['message'], $_SESSION['status'])): ?>

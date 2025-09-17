@@ -25,7 +25,7 @@ if (!$userObj->isLoggedIn()) {
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div class="col-span-1 md:col-span-5">
                 <h1 class="text-3xl font-bold text-center mb-6">
-                    <p>Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!</p>
+                    Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
                 </h1>
 
                 <div class="bg-white rounded-lg shadow p-6">
