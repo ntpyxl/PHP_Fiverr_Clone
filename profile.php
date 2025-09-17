@@ -21,7 +21,7 @@ $userInfo = $userObj->getUsers($_SESSION['user_id']);
 </head>
 
 <body class="bg-gray-100">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'components/navbar.php'; ?>
 
     <main class="max-w-6xl mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center mb-6">Hello there and welcome!</h1>
