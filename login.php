@@ -23,10 +23,10 @@
 <body class="min-h-screen flex items-center justify-center">
     <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8">
         <div class="border-b pb-4 mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Welcome to freelancer's dashboard, Login Now!</h2>
+            <h2 class="text-2xl font-bold text-gray-800">FiClone Login Page</h2>
         </div>
 
-        <form action="core/handleForms.php" method="POST" class="space-y-6">
+        <form action="core/handleForms.php" method="POST" class="space-y-4">
             <?php
             if (isset($_SESSION['message']) && isset($_SESSION['status'])) {
                 if ($_SESSION['status'] == "200") {
@@ -43,14 +43,14 @@
             <div>
                 <label for="email" class="block text-gray-700 font-medium">Email</label>
                 <input type="email" id="email" name="email" required
-                    class="mt-2 w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
             <!-- Password -->
             <div>
                 <label for="password" class="block text-gray-700 font-medium">Password</label>
                 <input type="password" id="password" name="password" required
-                    class="mt-2 w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
             <!-- Submit -->

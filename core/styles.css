@@ -501,6 +501,9 @@
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
   }
+  .pe-2 {
+    padding-inline-end: calc(var(--spacing) * 2);
+  }
   .pb-3 {
     padding-bottom: calc(var(--spacing) * 3);
   }

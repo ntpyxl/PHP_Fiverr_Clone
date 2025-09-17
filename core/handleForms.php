@@ -7,14 +7,15 @@ if (isset($_POST['insertNewUserBtn'])) {
 	$contact_number = htmlspecialchars(trim($_POST['contact_number']));
 	$password = trim($_POST['password']);
 	$confirm_password = trim($_POST['confirm_password']);
+	$user_role = $_POST['role'];
 
-	if (!empty($username) && !empty($email) && !empty($password) && !empty($confirm_password)) {
+	if (!empty($username) && !empty($email) && !empty($password) && !empty($confirm_password && !empty($user_role))) {
 
 		if ($password == $confirm_password) {
 
 			if (!$userObj->usernameExists($username)) {
 
-				if ($userObj->registerUser($username, $email, $password, $contact_number)) {
+				if ($userObj->registerUser($username, $email, $password, $contact_number, $user_role)) {
 					header("Location: ../login.php");
 				} else {
 					$_SESSION['message'] = "An error occured with the query!";
@@ -45,7 +46,11 @@ if (isset($_POST['loginUserBtn'])) {
 	if (!empty($email) && !empty($password)) {
 
 		if ($userObj->loginUser($email, $password)) {
-			header("Location: ../index.php");
+			if ($_SESSION['user_role'] == "Freelancer") {
+				header("Location: ../freelancer/");
+			} else if ($_SESSION['user_role'] == "Client") {
+				header("Location: ../client/");
+			}
 		} else {
 			$_SESSION['message'] = "Username/password invalid";
 			$_SESSION['status'] = "400";

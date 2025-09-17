@@ -9,7 +9,7 @@ class Offer extends Database
 
     public function createOffer($user_id, $description, $proposal_id)
     {
-        $sql = "INSERT INTO offers (user_id, description, proposal_id) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO offers (offeror_id, description, proposal_id) VALUES (?, ?, ?)";
         return $this->executeNonQuery($sql, [$user_id, $description, $proposal_id]);
     }
 
@@ -23,7 +23,7 @@ class Offer extends Database
                     offers.*, fiverr_clone_users.*, 
                     offers.date_added AS offer_date_added
                 FROM offers JOIN fiverr_clone_users ON 
-                offers.user_id = fiverr_clone_users.user_id 
+                offers.offeror_id = fiverr_clone_users.user_id 
                 ORDER BY offers.date_added DESC";
         return $this->executeQuery($sql);
     }
@@ -36,7 +36,7 @@ class Offer extends Database
                     offers.date_added AS offer_date_added 
                 FROM Offers 
                 JOIN fiverr_clone_users ON 
-                    offers.user_id = fiverr_clone_users.user_id
+                    offers.offeror_id = fiverr_clone_users.user_id
                 WHERE proposal_id = ? 
                 ORDER BY Offers.date_added DESC";
         return $this->executeQuery($sql, [$proposal_id]);

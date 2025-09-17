@@ -1,3 +1,5 @@
+<!-- TODO: REVIEW THIS FILE -->
+
 <?php
 require_once 'core/classloader.php';
 
