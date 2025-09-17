@@ -3,7 +3,7 @@ CREATE TABLE fiverr_clone_users (
     username VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL,
     password TEXT,
-    user_role ENUM('Freelancer', 'Client') NOT NULL,
+    user_role ENUM('Freelancer', 'Client', 'Admin') NOT NULL,
     display_picture TEXT,
     bio_description TEXT,
     contact_number VARCHAR(255),
