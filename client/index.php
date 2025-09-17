@@ -1,120 +1,128 @@
-<?php require_once 'classloader.php'; ?>
-<?php 
+<?php
+require_once '../core/classloader.php';
+
 if (!$userObj->isLoggedIn()) {
-  header("Location: login.php");
+    header("Location: ../login.php");
 }
-
-if (!$userObj->isAdmin()) {
-  header("Location: ../freelancer/index.php");
-} 
 ?>
-<!doctype html>
-  <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../core/styles.css">
+
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <style>
-      body {
-        font-family: "Arial";
-      }
+        body {
+            font-family: "Arial", sans-serif;
+        }
     </style>
-  </head>
-  <body>
-    <?php include 'includes/navbar.php'; ?>
-    <div class="container-fluid">
-      <div class="display-4 text-center">Hello there and welcome! <span class="text-success"><?php echo $_SESSION['username']; ?>. </span> Double click to edit your offers and then press enter to save!</div>
-      <div class="text-center">
-        <?php  
-          if (isset($_SESSION['message']) && isset($_SESSION['status'])) {
+</head>
 
-            if ($_SESSION['status'] == "200") {
-              echo "<h1 style='color: green;'>{$_SESSION['message']}</h1>";
-            }
+<body class="bg-gray-50">
+    <?php include '../components/navbar.php'; ?>
 
-            else {
-              echo "<h1 style='color: red;'>{$_SESSION['message']}</h1>"; 
-            }
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6">
+            Hello there and welcome!
+            <span class="text-green-600"><?php echo $_SESSION['username']; ?>.</span>
+            Double click to edit your offers and then press enter to save!
+        </h1>
 
-          }
-          unset($_SESSION['message']);
-          unset($_SESSION['status']);
-        ?>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-12">
-          <?php $getProposals = $proposalObj->getProposals(); ?>
-          <?php foreach ($getProposals as $proposal) { ?>
-          <div class="card shadow mt-4 mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <h2><a href="other_profile_view.php?user_id=<?php echo $proposal['user_id'] ?>"><?php echo $proposal['username']; ?></a></h2>
-                  <img src="<?php echo '../images/'.$proposal['image']; ?>" class="img-fluid" alt="">
-                  <p class="mt-4 mb-4"><?php echo $proposal['description']; ?></p>
-                  <h4><i><?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']);?> PHP</i></h4>
+        <?php if (isset($_SESSION['message'], $_SESSION['status'])): ?>
+            <p class="text-center font-semibold text-lg mb-6
+                <?php echo $_SESSION['status'] == '200' ? 'text-green-600' : 'text-red-600'; ?>">
+                <?php echo $_SESSION['message']; ?>
+            </p>
+            <?php unset($_SESSION['message'], $_SESSION['status']); ?>
+        <?php endif; ?>
+
+        <?php foreach ($proposalObj->getProposals() as $proposal): ?>
+            <section class="bg-white rounded-lg shadow mb-6 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left Column -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2">
+                        <a href="other_profile_view.php?user_id=<?php echo $proposal['user_id'] ?>" class="text-blue-600 hover:underline">
+                            <?php echo $proposal['username']; ?>
+                        </a>
+                    </h2>
+                    <img src="<?php echo '../images/' . $proposal['image']; ?>" class="w-full h-auto rounded" alt="">
+                    <p class="mt-4 mb-4 text-gray-700"><?php echo $proposal['description']; ?></p>
+                    <h4 class="text-lg font-semibold italic">
+                        <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP
+                    </h4>
                 </div>
-                <div class="col-md-6">
-                  <div class="card" style="height: 600px;">
-                    <div class="card-header"><h2>All Offers</h2></div>
-                    <div class="card-body overflow-auto">
 
-                      <?php $getOffersByProposalID = $offerObj->getOffersByProposalID($proposal['proposal_id']); ?>
-                      <?php foreach ($getOffersByProposalID as $offer) { ?>
-                      <div class="offer">
-                        <h4><?php echo $offer['username']; ?> <span class="text-primary">( <?php echo $offer['contact_number']; ?> )</span></h4>
-                        <small><i><?php echo $offer['offer_date_added']; ?></i></small>
-                        <p><?php echo $offer['description']; ?></p>
+                <!-- Right Column -->
+                <div class="bg-gray-50 rounded-lg border border-gray-200 h-[600px] flex flex-col">
+                    <header class="px-4 py-2 border-b">
+                        <h2 class="text-lg font-semibold">All Offers</h2>
+                    </header>
 
-                        <?php if ($offer['user_id'] == $_SESSION['user_id']) { ?>
-                          <form action="core/handleForms.php" method="POST">
-                            <div class="form-group">
-                              <input type="hidden" class="form-control" value="<?php echo $offer['offer_id']; ?>" name="offer_id" >
-                              <input type="submit" class="btn btn-danger" value="Delete" name="deleteOfferBtn">
-                            </div>
-                          </form>
+                    <!-- Offers List -->
+                    <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                        <?php foreach ($offerObj->getOffersByProposalID($proposal['proposal_id']) as $offer): ?>
+                            <article class="offer border-b pb-4">
+                                <h4 class="font-semibold">
+                                    <?php echo $offer['username']; ?>
+                                    <span class="text-blue-600">( <?php echo $offer['contact_number']; ?> )</span>
+                                </h4>
+                                <small class="text-gray-500 italic"><?php echo $offer['offer_date_added']; ?></small>
+                                <p class="mt-2"><?php echo $offer['description']; ?></p>
 
-                          <form action="core/handleForms.php" method="POST" class="updateOfferForm d-none">
-                            <div class="form-group">
-                              <label for="#">Description</label>
-                              <input type="text" class="form-control" value="<?php echo $offer['description']; ?>" name="description">
-                              <input type="hidden" class="form-control" value="<?php echo $offer['offer_id']; ?>" name="offer_id" >
-                              <input type="submit" class="btn btn-primary form-control" name="updateOfferBtn">
-                            </div>
-                          </form>
-                        <?php } ?>
-                        <hr>
-                      </div>
-                      <?php } ?>
+                                <?php if ($offer['user_id'] == $_SESSION['user_id']): ?>
+                                    <!-- Delete Offer -->
+                                    <form action="core/handleForms.php" method="POST" class="mt-2">
+                                        <input type="hidden" name="offer_id" value="<?php echo $offer['offer_id']; ?>">
+                                        <button type="submit" name="deleteOfferBtn"
+                                            class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                                            Delete
+                                        </button>
+                                    </form>
+
+                                    <!-- Update Offer (hidden until dblclick) -->
+                                    <form action="core/handleForms.php" method="POST" class="updateOfferForm hidden mt-4">
+                                        <label class="block text-sm font-medium mb-1">Description</label>
+                                        <input type="text" name="description" value="<?php echo $offer['description']; ?>"
+                                            class="w-full border rounded px-3 py-2 mb-2">
+                                        <input type="hidden" name="offer_id" value="<?php echo $offer['offer_id']; ?>">
+                                        <button type="submit" name="updateOfferBtn"
+                                            class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">
+                                            Update
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </article>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="card-footer">
-                      <form action="core/handleForms.php" method="POST">
-                        <div class="form-group">
-                          <label for="#">Description</label>
-                          <input type="text" class="form-control" name="description">
-                          <input type="hidden" class="form-control" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
-                          <input type="submit" class="btn btn-primary float-right mt-4" name="insertOfferBtn"> 
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+
+                    <!-- New Offer -->
+                    <footer class="px-4 py-2 border-t bg-white">
+                        <form action="core/handleForms.php" method="POST">
+                            <label class="block text-sm font-medium mb-1">Description</label>
+                            <input type="text" name="description"
+                                class="w-full border rounded px-3 py-2 mb-2">
+                            <input type="hidden" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
+                            <button type="submit" name="insertOfferBtn"
+                                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                Submit Offer
+                            </button>
+                        </form>
+                    </footer>
                 </div>
-              </div>
-            </div>
-          </div>
-          <?php } ?>
-        </div>
-      </div>
-    </div>
+            </section>
+        <?php endforeach; ?>
+    </main>
+
     <script>
-       $('.offer').on('dblclick', function (event) {
-          var updateOfferForm = $(this).find('.updateOfferForm');
-          updateOfferForm.toggleClass('d-none');
+        $('.offer').on('dblclick', function() {
+            $(this).find('.updateOfferForm').toggleClass('hidden');
         });
     </script>
-  </body>
+</body>
+
 </html>
