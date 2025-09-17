@@ -7,17 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>FiClone Registration</title>
+
     <link rel="stylesheet" href="core/styles.css">
 
     <style>
         body {
-            font-family: "Arial";
             background-image: url("https://img.freepik.com/free-vector/winter-blue-pink-gradient-background-vector_53876-117275.jpg?t=st=1746104039~exp=1746107639~hmac=2f238261c795cf2f54851b4f9f1b1bda806f8a408384522f6de69dcd5115750f&w=1380");
             background-size: cover;
             background-position: center;
         }
     </style>
-    <title>Freelancer Registration</title>
 </head>
 
 <body class="min-h-screen flex items-center justify-center">

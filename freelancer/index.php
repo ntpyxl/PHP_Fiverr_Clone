@@ -13,15 +13,9 @@ if (!$userObj->isLoggedIn()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Tailwind already linked in ../core/styles.css -->
     <link rel="stylesheet" href="../core/styles.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-    <style>
-        body {
-            font-family: "Arial", sans-serif;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 
 <body class="bg-gray-100">

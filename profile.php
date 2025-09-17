@@ -18,12 +18,6 @@ $userInfo = $userObj->getUsers($_SESSION['user_id']);
     <link rel="stylesheet" href="core/styles.css">
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
-    <style>
-        body {
-            font-family: "Arial", sans-serif;
-        }
-    </style>
 </head>
 
 <body class="bg-gray-100">

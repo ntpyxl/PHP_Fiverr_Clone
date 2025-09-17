@@ -1,9 +1,24 @@
-<?php define("BASE_URL", "/php_fiverr_clone/src/"); ?>
+<?php
+define("BASE_URL", "/php_fiverr_clone/src/");
 
-<nav class="bg-[#023E8A] text-white px-6 py-4"> <!-- #TODO: #0077B6 Freelancer Color -->
+$filePath = $_SERVER['PHP_SELF'];
+$parts = explode("/", trim($filePath, "/"));
+
+$dir = $parts[2] ?? "";
+$file = basename($filePath);
+
+$navbarTitle = [
+    "freelancer" => "Freelancer Dashboard",
+    "client"     => "Client Dashboard"
+];
+?>
+
+<nav class="bg-[#0077B6] text-white px-6 py-4">
     <div class="flex items-center justify-between">
-        <!-- Brand -->
-        <a href="index.php" class="text-lg font-bold">Client Panel</a>
+        <a href="index.php" class="text-lg font-bold">
+            <?php echo $navbarTitle[$dir] ?? "FiClone"; ?>
+        </a>
+
 
         <!-- Mobile Toggle -->
         <button id="menu-toggle" class="lg:hidden p-2 focus:outline-none">

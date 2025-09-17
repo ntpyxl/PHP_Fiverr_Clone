@@ -2,7 +2,7 @@
 require_once '../core/classloader.php';
 
 if (!$userObj->isLoggedIn()) {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 ?>
 
@@ -14,12 +14,6 @@ if (!$userObj->isLoggedIn()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="../core/styles.css">
-
-    <style>
-        body {
-            font-family: "Arial", sans-serif;
-        }
-    </style>
 </head>
 
 <body class="bg-gray-50">

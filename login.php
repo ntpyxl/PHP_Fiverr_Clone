@@ -7,17 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>FiClone Login</title>
+
     <link rel="stylesheet" href="core/styles.css">
 
     <style>
         body {
-            font-family: "Arial";
             background-image: url("https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
             background-size: cover;
             background-position: center;
         }
     </style>
-    <title>Freelancer Dashboard Login</title>
 </head>
 
 <body class="min-h-screen flex items-center justify-center">
