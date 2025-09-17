@@ -90,7 +90,7 @@ if (!$userObj->isLoggedIn()) {
                             <a href="../visit_profile.php?user_id=<?php echo $proposal['user_id']; ?>"
                                 class="text-blue-600 hover:underline">
                                 <?php echo $proposal['username']; ?></a>
-                            <span class="text-sm italic text-gray-500"> proposed on <?php echo date("F d, Y, h:i A", strtotime($proposal['proposals_date_added'])); ?></span>
+                            <span class="text-sm italic text-gray-500"> proposed on <?php echo date("F d, Y, g:i A", strtotime($proposal['proposals_date_added'])); ?></span>
                         </h2>
 
                         <img src="<?php echo '../images/' . $proposal['image']; ?>"

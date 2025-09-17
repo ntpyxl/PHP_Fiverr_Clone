@@ -151,15 +151,14 @@ if (isset($_POST['insertOfferBtn'])) {
 			$isAlreadyOffered = true;
 			echo "<script>
 					alert('You already made an offer!');
-					window.location.href = '../index.php';
-					// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
+					window.location.href = '../client/';
 				</script>";
 		}
 	}
 
 	if (!$isAlreadyOffered) {
 		if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
-			header("Location: ../index.php");
+			header("Location: ../client/");
 			// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 		}
 	}
@@ -171,8 +170,7 @@ if (isset($_POST['updateOfferBtn'])) {
 	if ($offerObj->updateOffer($description, $offer_id)) {
 		$_SESSION['message'] = "Offer updated successfully!";
 		$_SESSION['status'] = '200';
-		header("Location: ../index.php");
-		// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
+		header("Location: ../client/");
 	}
 }
 
@@ -181,7 +179,6 @@ if (isset($_POST['deleteOfferBtn'])) {
 	if ($offerObj->deleteOffer($offer_id)) {
 		$_SESSION['message'] = "Offer deleted successfully!";
 		$_SESSION['status'] = '200';
-		header("Location: ../index.php");
-		// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
+		header("Location: ../client/");
 	}
 }

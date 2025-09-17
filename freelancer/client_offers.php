@@ -51,20 +51,21 @@ if (!$userObj->isLoggedIn()) {
                             </h4>
                         </div>
 
-                        <div class="bg-gray-50 border rounded-lg shadow-sm">
-                            <div class="border-b px-4 py-2">
+                        <div class="bg-gray-50 border rounded-s shadow-sm">
+                            <div class="border-b px-4 py-1">
                                 <h2 class="text-lg font-bold">All Offers</h2>
                             </div>
-                            <div class="p-4 max-h-80 overflow-y-auto space-y-4">
+
+                            <div class="px-4 py-3 max-h-80 overflow-y-auto">
                                 <?php $getOffersByProposalID = $offerObj->getOffersByProposalID($proposal['proposal_id']); ?>
                                 <?php foreach ($getOffersByProposalID as $offer) { ?>
                                     <div class="border-b pb-3">
-                                        <h4 class="font-semibold text-gray-900">
+                                        <h4 class="font-semibold text-lg text-gray-900">
                                             <?php echo $offer['username']; ?>
-                                            <span class="text-blue-600">( <?php echo $offer['contact_number']; ?> )</span>
+                                            <span class="text-xs italic text-blue-600">#<?php echo $offer['contact_number']; ?></span>
                                         </h4>
-                                        <small class="text-gray-500"><i><?php echo date("F d, Y, h:i A", strtotime($offer['offer_date_added'])); ?></i></small>
-                                        <p class="text-gray-700 mt-1"><?php echo $offer['description']; ?></p>
+                                        <p class="text-xs text-gray-500"><i><?php echo date("F d, Y, g:i A", strtotime($offer['offer_date_added'])); ?></i></p>
+                                        <p class="text-gray-700 mt-2"><?php echo $offer['description']; ?></p>
                                     </div>
                                 <?php } ?>
                             </div>

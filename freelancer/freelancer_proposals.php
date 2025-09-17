@@ -46,7 +46,7 @@ if (!$userObj->isLoggedIn()) {
                 <div class="proposalCard bg-white shadow rounded-lg p-6">
                     <h2 class="text-xl font-semibold">
                         <a href="#" class="text-blue-600 hover:underline"><?php echo $proposal['username']; ?></a>
-                        <span class="text-sm italic text-gray-500"> proposed on <?php echo date("F d, Y, h:i A", strtotime($proposal['proposals_date_added'])); ?></span>
+                        <span class="text-sm italic text-gray-500"> proposed on <?php echo date("F d, Y, g:i A", strtotime($proposal['proposals_date_added'])); ?></span>
                     </h2>
 
                     <img src="<?php echo "../images/" . $proposal['image']; ?>"
@@ -59,7 +59,7 @@ if (!$userObj->isLoggedIn()) {
                         <i>Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP</i>
                     </h4>
 
-                    <div class="flex justify-end space-x-3">
+                    <div class="flex mt-2 justify-end space-x-3">
                         <button
                             class="editProposalButton bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded cursor-pointer">
                             Edit
