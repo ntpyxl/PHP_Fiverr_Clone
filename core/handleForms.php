@@ -170,12 +170,32 @@ if (isset($_POST['insertOfferBtn'])) {
 if (isset($_POST['updateOfferBtn'])) {
 	$description = htmlspecialchars($_POST['description']);
 	$offer_id = $_POST['offer_id'];
+	$return_to = $_POST['return_to'] ?? 'index.php';
+	$ret_category_id = $_POST['return_to_category'] ?? null;
+	$ret_subcategory_id = $_POST['return_to_subcategory'] ?? null;
+
 	if ($offerObj->updateOffer($description, $offer_id)) {
 		$_SESSION['message'] = "Offer updated successfully!";
 		$_SESSION['status'] = '200';
-		header("Location: ../client/");
+
+		$query = [];
+		if (!empty($ret_category_id)) {
+			$query['category'] = $ret_category_id;
+		}
+		if (!empty($ret_subcategory_id)) {
+			$query['subcategory'] = $ret_subcategory_id;
+		}
+
+		$redirectUrl = "../" . ltrim($return_to, "/");
+		if (!empty($query)) {
+			$redirectUrl .= "?" . http_build_query($query);
+		}
+
+		header("Location: " . $redirectUrl);
+		exit;
 	}
 }
+
 
 if (isset($_POST['deleteOfferBtn'])) {
 	$offer_id = $_POST['offer_id'];

@@ -109,8 +109,21 @@ if (!$userObj->isLoggedIn()) {
                                         <label class="block text-sm font-medium mb-1">Description</label>
                                         <input type="text" name="description" value="<?php echo $offer['description']; ?>"
                                             class="w-full border rounded px-3 py-2 mb-2">
+
                                         <input type="hidden" name="offer_id" value="<?php echo $offer['offer_id']; ?>">
-                                        <button type="submit" name="updateOfferBtn"
+                                        <input type="hidden" name="return_to" value="proposals.php">
+
+                                        <?php if (isset($_GET['category'])) { ?>
+                                            <input type="hidden" name="return_to_category" value="<?php echo $_GET['category']; ?>">
+                                        <?php
+                                        }
+                                        if (isset($_GET['subcategory'])) {
+                                        ?>
+                                            <input type="hidden" name="return_to_subcategory" value="<?php echo $_GET['subcategory']; ?>">
+                                        <?php } ?>
+
+                                        <button type="submit"
+                                            name="updateOfferBtn"
                                             class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 cursor-pointer">
                                             Update
                                         </button>
@@ -153,9 +166,10 @@ if (!$userObj->isLoggedIn()) {
         <?php } ?>
 
     </div>
-    </div>
+
 
     <script src="core/scripts/proposalForm.js"></script>
+    <script src="core/scripts/offerCard.js"></script>
 
 </body>
 
