@@ -34,7 +34,7 @@ $navbarTitle = [
                     Dashboard
                 </a>
 
-                <a href="../profile.php" class="hover:text-gray-300">Profile</a>
+                <a href="<?php echo BASE_URL; ?>profile.php" class="hover:text-gray-300">Profile</a>
 
                 <?php if ($_SESSION['user_role'] == "Client") { ?>
                     <a href="<?php echo BASE_URL; ?>client/offers_sent.php" class="hover:text-gray-300">

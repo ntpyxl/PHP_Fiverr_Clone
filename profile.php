@@ -24,7 +24,9 @@ $userInfo = $userObj->getUsers($_SESSION['user_id']);
     <?php include 'components/navbar.php'; ?>
 
     <main class="max-w-6xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-6">Hello there and welcome!</h1>
+        <h1 class="text-4xl font-bold text-center mb-8">
+            Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+        </h1>
 
         <?php if (isset($_SESSION['message'], $_SESSION['status'])): ?>
             <p class="text-center font-semibold mb-6 
