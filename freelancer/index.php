@@ -41,6 +41,31 @@ if (!$userObj->isLoggedIn()) {
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
+                                <label class="block text-sm font-medium mb-1">Category</label>
+                                <select id="categorySelect" name="category" required
+                                    class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                                    <option value="" disabled selected>Select a category</option>
+
+                                    <?php foreach ($categoryObj->getCategories() as $category) { ?>
+                                        <option value="<?php echo $category['category_id']; ?>">
+                                            <?php echo $category['category_name']; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Subcategory</label>
+                                <select id="subcategorySelect" name="subcategory" required
+                                    class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                                    <option value="" disabled selected>Select a subcategory</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
                                 <label class="block text-sm font-medium mb-1">Minimum Price</label>
                                 <input type="number" name="min_price" required
                                     placeholder="Lowest you'd accept"
@@ -107,6 +132,8 @@ if (!$userObj->isLoggedIn()) {
             </div>
         </div>
     </div>
+
+    <script src="../core/scripts/proposalForm.js"></script>
 
 </body>
 

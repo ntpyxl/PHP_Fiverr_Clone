@@ -145,7 +145,7 @@ if (isset($_POST['insertOfferBtn'])) {
 	$description = htmlspecialchars($_POST['description']);
 
 	$isAlreadyOffered = false;
-	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id); // TODO: Maybe create new function just to not return everything?
+	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id);
 	foreach ($offersInProposal as $offer) {
 		if ($user_id == $offer['user_id']) {
 			$isAlreadyOffered = true;
@@ -159,7 +159,6 @@ if (isset($_POST['insertOfferBtn'])) {
 	if (!$isAlreadyOffered) {
 		if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
 			header("Location: ../client/");
-			// TODO: HAVE RETURN_TO VAR SO PROPERLY RETURN or maybe do location.reload()
 		}
 	}
 }
@@ -201,5 +200,17 @@ if (isset($_POST['insertSubcategoryButton'])) {
 		$_SESSION['message'] = "Subcategory created successfully!";
 		$_SESSION['status'] = '200';
 		header("Location: ../admin/manage_categories.php");
+	}
+}
+
+if (isset($_POST['refreshSubcategoryOptionsRequest'])) {
+	$parent_category_id = $_POST['category_id'];
+
+	$functionResult = $categoryObj->getSubcategoryByParentId($parent_category_id);
+	foreach ($functionResult as $subcategory) {
+		$subcategory_id = $subcategory['subcategory_id'];
+		$subcategory_name = $subcategory['subcategory_name'];
+
+		echo "<option value=$subcategory_id>$subcategory_name</option>";
 	}
 }
