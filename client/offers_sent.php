@@ -27,7 +27,37 @@ if (!$userObj->isLoggedIn()) {
 
         <div class="flex justify-center">
             <div class="w-full">
-                <!-- Content placeholder -->
+                <?php foreach ($offerObj->getOffersByOfferorID($_SESSION['user_id']) as $offer) { ?>
+
+                    <div class="bg-white rounded-lg shadow mb-6 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h2 class="text-xl font-semibold mb-2">
+                                <a href="../visit_profile.php?user_id=<?php echo $offer['proposer_user_id'] ?>" class="text-blue-600 hover:underline">
+                                    <?php echo $offer['proposer_username']; ?>
+                                </a>
+                            </h2>
+                            <img src="<?php echo '../images/' . $offer['proposal_image']; ?>" class="w-full h-80 border border-gray-400 rounded object-contain" alt="">
+                            <p class="mt-4 mb-4 text-gray-700"><?php echo $offer['proposal_description']; ?></p>
+                            <h4 class="text-lg font-semibold italic">
+                                Price Range: <?php echo number_format($offer['proposal_min_price']) . " - " . number_format($offer['proposal_max_price']); ?> PHP
+                            </h4>
+                        </div>
+
+                        <div class="px-3 py-1 border-l">
+                            <h3 class="text-lg font-semibold">
+                                You offered
+                                <span class="font-normal text-gray-500 italic">
+                                    on <?php echo date("F d, Y, g:i A", strtotime($offer['offer_date_added'])); ?>
+                                </span>
+                            </h3>
+
+                            <p class="mt-2 px-3 py-1 overflow-y-auto">
+                                <?php echo $offer['offer_description']; ?>
+                            </p>
+                        </div>
+                    </div>
+
+                <?php } ?>
             </div>
         </div>
     </div>

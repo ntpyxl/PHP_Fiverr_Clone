@@ -42,6 +42,35 @@ class Offer extends Database
         return $this->executeQuery($sql, [$proposal_id]);
     }
 
+    public function getOffersByOfferorID($offeror_id)
+    {
+        $sql = "SELECT
+                    offers.offer_id AS offeror_user_id,
+                    ou.username AS offeror_username,
+                    ou.contact_number AS offeror_contact_number,
+                    offers.description AS offer_description,
+                    proposals.proposal_id,
+                    proposals.proposer_id AS proposer_user_id,
+                    pu.username AS proposer_username,
+                    pu.contact_number AS proposer_contact_number,
+                    proposals.description AS proposal_description,
+                    proposals.image AS proposal_image,
+                    proposals.min_price AS proposal_min_price,
+                    proposals.max_price AS proposal_max_price,
+                    proposals.date_added AS proposal_date_added,
+                    offers.date_added AS offer_date_added 
+                FROM Offers 
+                JOIN proposals ON 
+                    offers.proposal_id = proposals.proposal_id
+                JOIN fiverr_clone_users ou ON 
+                    offers.offeror_id = ou.user_id
+                JOIN fiverr_clone_users pu ON 
+                    proposals.proposer_id = pu.user_id
+                WHERE offers.offeror_id = ? 
+                ORDER BY Offers.date_added DESC";
+        return $this->executeQuery($sql, [$offeror_id]);
+    }
+
     public function updateOffer($description, $offer_id)
     {
         $sql = "UPDATE Offers SET description = ? WHERE Offer_id = ?";

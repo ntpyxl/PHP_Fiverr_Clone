@@ -49,7 +49,7 @@ if (!$userObj->isLoggedIn()) {
 
                     <div class="flex-1 overflow-y-auto p-4 space-y-4">
                         <?php foreach ($offerObj->getOffersByProposalID($proposal['proposal_id']) as $offer): ?>
-                            <article class="offer border-b pb-4">
+                            <div class="offer border-b pb-4">
                                 <h4 class="font-semibold text-lg">
                                     <?php echo $offer['username']; ?>
                                     <span class="text-blue-600 text-xs italic">#<?php echo $offer['contact_number']; ?></span>
@@ -83,15 +83,15 @@ if (!$userObj->isLoggedIn()) {
                                         </button>
                                     </form>
                                 <?php endif; ?>
-                            </article>
+                            </div>
                         <?php endforeach; ?>
                     </div>
 
-                    <footer class="px-4 py-2 border-t">
+                    <div class="px-4 py-2 border-t">
                         <form action="../core/handleForms.php" method="POST">
                             <label class="block text-sm font-medium mb-1">Description</label>
                             <input type="text" name="description"
-                                class="w-full border rounded px-3 py-2 mb-2">
+                                class="w-full border rounded px-3 py-1 mb-2">
 
                             <input type="hidden" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
 
@@ -112,7 +112,7 @@ if (!$userObj->isLoggedIn()) {
                                 </div>
                             </div>
                         </form>
-                    </footer>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
