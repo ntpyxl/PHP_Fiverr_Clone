@@ -147,23 +147,50 @@ if (isset($_POST['insertOfferBtn'])) {
 	$user_id = $_SESSION['user_id'];
 	$proposal_id = $_POST['proposal_id'];
 	$description = htmlspecialchars($_POST['description']);
+	$return_to = $_POST['return_to'] ?? 'index.php';
+	$ret_category_id = $_POST['return_to_category'] ?? null;
+	$ret_subcategory_id = $_POST['return_to_subcategory'] ?? null;
+	$isAlreadyOffered = false;
+
+	function buildRedirectUrl($base, $catId = null, $subcatId = null)
+	{
+		$query = [];
+		if (!empty($catId)) {
+			$query['category'] = $catId;
+		}
+		if (!empty($subcatId)) {
+			$query['subcategory'] = $subcatId;
+		}
+
+		$url = $base; // no rtrim + slash
+		if (!empty($query)) {
+			$url .= "?" . http_build_query($query);
+		}
+
+		return $url;
+	}
+
 
 	$isAlreadyOffered = false;
 	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id);
+
 	foreach ($offersInProposal as $offer) {
 		if ($user_id == $offer['user_id']) {
 			$isAlreadyOffered = true;
+			$redirectUrl = buildRedirectUrl("../" . ltrim($return_to, "/"), $ret_category_id, $ret_subcategory_id);
+
 			echo "<script>
-					alert('You already made an offer!');
-					window.location.href = '../client/';
-				</script>";
+                    alert('You already made an offer!');
+                    window.location.href = '$redirectUrl';
+                  </script>";
+			exit;
 		}
 	}
 
-	if (!$isAlreadyOffered) {
-		if ($offerObj->createOffer($user_id, $description, $proposal_id)) {
-			header("Location: ../client/");
-		}
+	if (!$isAlreadyOffered && $offerObj->createOffer($user_id, $description, $proposal_id)) {
+		$redirectUrl = buildRedirectUrl("../" . ltrim($return_to, "/"), $ret_category_id, $ret_subcategory_id);
+		header("Location: " . $redirectUrl);
+		exit;
 	}
 }
 
@@ -199,10 +226,29 @@ if (isset($_POST['updateOfferBtn'])) {
 
 if (isset($_POST['deleteOfferBtn'])) {
 	$offer_id = $_POST['offer_id'];
+	$return_to = $_POST['return_to'] ?? 'index.php';
+	$ret_category_id = $_POST['return_to_category'] ?? null;
+	$ret_subcategory_id = $_POST['return_to_subcategory'] ?? null;
+
 	if ($offerObj->deleteOffer($offer_id)) {
 		$_SESSION['message'] = "Offer deleted successfully!";
 		$_SESSION['status'] = '200';
-		header("Location: ../client/");
+
+		$query = [];
+		if (!empty($ret_category_id)) {
+			$query['category'] = $ret_category_id;
+		}
+		if (!empty($ret_subcategory_id)) {
+			$query['subcategory'] = $ret_subcategory_id;
+		}
+
+		$redirectUrl = "../" . ltrim($return_to, "/");
+		if (!empty($query)) {
+			$redirectUrl .= "?" . http_build_query($query);
+		}
+
+		header("Location: " . $redirectUrl);
+		exit;
 	}
 }
 

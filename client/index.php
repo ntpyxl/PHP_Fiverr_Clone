@@ -81,6 +81,8 @@ if (!$userObj->isLoggedIn()) {
 
                                         <form action="../core/handleForms.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this offer?');">
                                             <input type="hidden" name="offer_id" value="<?php echo $offer['offer_id']; ?>">
+                                            <input type="hidden" name="return_to" value="<?php echo strtolower($_SESSION['user_role']) . '/'; ?>">
+
                                             <button type="submit" name="deleteOfferBtn" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 cursor-pointer">
                                                 Delete
                                             </button>
@@ -113,6 +115,7 @@ if (!$userObj->isLoggedIn()) {
                                 class="w-full border rounded px-3 py-1 mb-2">
 
                             <input type="hidden" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
+                            <input type="hidden" name="return_to" value="<?php echo strtolower($_SESSION['user_role']) . '/'; ?>">
 
                             <div class="flex flex-row justify-between items-center">
                                 <button type="submit" name="insertOfferBtn"
