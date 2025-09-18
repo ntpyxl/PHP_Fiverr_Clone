@@ -80,6 +80,8 @@ if (isset($_POST['updateUserBtn'])) {
 
 if (isset($_POST['insertNewProposalBtn'])) {
 	$user_id = $_SESSION['user_id'];
+	$category_id = $_POST['category'];
+	$subcategory_id = $_POST['subcategory'];
 	$description = htmlspecialchars($_POST['description']);
 	$min_price = htmlspecialchars($_POST['min_price']);
 	$max_price = htmlspecialchars($_POST['max_price']);
@@ -105,7 +107,7 @@ if (isset($_POST['insertNewProposalBtn'])) {
 
 	// Move file to the specified path 
 	if (move_uploaded_file($tempFileName, $folder)) {
-		if ($proposalObj->createProposal($user_id, $description, $imageName, $min_price, $max_price)) {
+		if ($proposalObj->createProposal($user_id, $category_id, $subcategory_id, $description, $imageName, $min_price, $max_price)) {
 			$_SESSION['status'] = "200";
 			$_SESSION['message'] = "Proposal created successfully!";
 			header("Location: ../freelancer/");
@@ -118,7 +120,7 @@ if (isset($_POST['updateProposalBtn'])) {
 	$max_price = $_POST['max_price'];
 	$proposal_id = $_POST['proposal_id'];
 	$description = htmlspecialchars($_POST['description']);
-	if ($proposalObj->updateProposal($description, $min_price, $max_price, $proposal_id)) {
+	if ($proposalObj->updateProposal($category_id, $subcategory_id, $description, $min_price, $max_price, $proposal_id)) {
 		$_SESSION['status'] = "200";
 		$_SESSION['message'] = "Proposal updated successfully!";
 		header("Location: ../freelancer/freelancer_proposals.php");

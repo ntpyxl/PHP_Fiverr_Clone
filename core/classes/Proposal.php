@@ -9,14 +9,16 @@ class Proposal extends Database
     /**
      * Creates a new Proposal.
      * @param string $title The Proposal title.
+     * @param int $category_id The ID of the category.
+     * @param int $subcategory_id The ID of the subcategory.
      * @param string $content The Proposal content.
      * @param int $author_id The ID of the author.
      * @return int The ID of the newly created Proposal.
      */
-    public function createProposal($user_id, $description, $image, $min_price, $max_price)
+    public function createProposal($user_id, $category_id, $subcategory_id, $description, $image, $min_price, $max_price)
     {
-        $sql = "INSERT INTO Proposals (proposer_id, description, image, min_price, max_price) VALUES (?, ?, ?, ?, ?)";
-        return $this->executeNonQuery($sql, [$user_id, $description, $image, $min_price, $max_price]);
+        $sql = "INSERT INTO Proposals (proposer_id, category_id, subcategory_id, description, image, min_price, max_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return $this->executeNonQuery($sql, [$user_id, $category_id, $subcategory_id, $description, $image, $min_price, $max_price]);
     }
 
     /**
@@ -53,15 +55,17 @@ class Proposal extends Database
     /**
      * Updates an Proposal.
      * @param int $id The Proposal ID to update.
-     * @param string $title The new title.
+     * @param string $description The new description.
      * @param string $content The new content.
      * @return int The number of affected rows.
      */
-    public function updateProposal($description, $min_price, $max_price, $proposal_id, $image = "")
+    public function updateProposal($category_id, $subcategory_id, $description, $min_price, $max_price, $proposal_id, $image = "")
     {
         if (!empty($image)) {
-            $sql = "UPDATE Proposals SET description = ?, image = ?, min_price = ?, max_price = ? WHERE Proposal_id = ?";
+            $sql = "UPDATE Proposals SET category_id = ?, subcategory_id = ?, description = ?, image = ?, min_price = ?, max_price = ? WHERE Proposal_id = ?";
             return $this->executeNonQuery($sql, [
+                $category_id,
+                $subcategory_id,
                 $description,
                 $image,
                 $min_price,
@@ -69,8 +73,10 @@ class Proposal extends Database
                 $proposal_id
             ]);
         } else {
-            $sql = "UPDATE Proposals SET description = ?, min_price = ?, max_price = ? WHERE Proposal_id = ?";
+            $sql = "UPDATE Proposals SET category_id = ?, subcategory_id = ?, description = ?, min_price = ?, max_price = ? WHERE Proposal_id = ?";
             return $this->executeNonQuery($sql, [
+                $category_id,
+                $subcategory_id,
                 $description,
                 $min_price,
                 $max_price,
