@@ -20,8 +20,9 @@ if (!$userObj->isLoggedIn()) {
     <?php include '../components/navbar.php'; ?>
 
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">
-            Hello there and welcome! Here are all the submitted project offers!
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6">
+            Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
+            Here are the offers you submitted!
         </h1>
 
         <div class="flex justify-center">

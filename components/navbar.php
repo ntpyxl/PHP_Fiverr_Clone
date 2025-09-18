@@ -15,12 +15,10 @@ $navbarTitle = [
 
 <nav class="bg-[#0077B6] text-white px-6 py-4">
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <!-- Left: Title -->
-        <a href="index.php" class="text-lg font-bold mb-2 lg:mb-0">
+        <a href="<?php echo "../" . $dir; ?>" class="text-lg font-bold mb-2 lg:mb-0">
             <?php echo $navbarTitle[$dir] ?? "FiClone"; ?>
         </a>
 
-        <!-- Right: Menu -->
         <div class="flex items-center justify-between">
             <!-- Mobile toggle -->
             <button id="menu-toggle" class="lg:hidden p-2 focus:outline-none">
@@ -31,19 +29,27 @@ $navbarTitle = [
                 </svg>
             </button>
 
-            <!-- Menu items -->
             <div id="menu" class="hidden lg:flex flex-col lg:flex-row mt-2 lg:mt-0 space-y-2 lg:space-y-0 lg:space-x-6">
+                <a href="<?php echo BASE_URL . strtolower($_SESSION['user_role']); ?>" class="hover:text-gray-300">
+                    Dashboard
+                </a>
+
                 <a href="../profile.php" class="hover:text-gray-300">Profile</a>
 
                 <?php if ($_SESSION['user_role'] == "Client") { ?>
-                    <a href="<?php echo BASE_URL; ?>client/client_sent_offers.php" class="hover:text-gray-300">
-                        Project Offers Submitted
+                    <a href="<?php echo BASE_URL; ?>client/offers_sent.php" class="hover:text-gray-300">
+                        Offers Submitted
                     </a>
                 <?php } ?>
 
                 <?php if ($_SESSION['user_role'] == "Freelancer") { ?>
-                    <a href="freelancer_proposals.php" class="hover:text-gray-300">Your Proposals</a>
-                    <a href="client_offers.php" class="hover:text-gray-300">Offers From Clients</a>
+                    <a href="freelancer_proposals.php" class="hover:text-gray-300">
+                        Your Proposals
+                    </a>
+
+                    <a href="offer_inbox.php" class="hover:text-gray-300">
+                        Offer Inbox
+                    </a>
                 <?php } ?>
 
                 <a href="<?php echo BASE_URL; ?>core/handleForms.php?logoutUserBtn=1" class="hover:text-red-400">Logout</a>
