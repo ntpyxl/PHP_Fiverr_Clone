@@ -35,8 +35,23 @@ if (!$userObj->isLoggedIn()) {
                             <?php echo $proposal['username']; ?>
                         </a>
                     </h2>
-                    <img src="<?php echo '../images/' . $proposal['image']; ?>" class="w-full h-80 border border-gray-400 rounded object-contain" alt="">
+                    <img
+                        src="<?php echo '../images/' . $proposal['image']; ?>"
+                        class="w-full h-80 border border-gray-400 rounded object-contain"
+                        alt="">
+
+                    <div class="mt-2 flex items-center space-x-2">
+                        <span class="font-medium text-gray-600">Category:</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                            <?php echo $proposal['category_name']; ?>
+                        </span>
+                        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                            <?php echo $proposal['subcategory_name']; ?>
+                        </span>
+                    </div>
+
                     <p class="mt-4 mb-4 text-gray-700"><?php echo $proposal['description']; ?></p>
+
                     <h4 class="text-lg font-semibold italic">
                         Price Range: <?php echo number_format($proposal['min_price']) . " - " . number_format($proposal['max_price']); ?> PHP
                     </h4>

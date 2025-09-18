@@ -42,6 +42,16 @@ if (!$userObj->isLoggedIn()) {
                                 alt="Proposal Image"
                                 class="w-full h-64 border border-gray-400 object-contain rounded mb-4">
 
+                            <div class="mt-2 flex items-center space-x-2">
+                                <span class="font-medium text-gray-600">Category:</span>
+                                <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                                    <?php echo $proposal['category_name']; ?>
+                                </span>
+                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                                    <?php echo $proposal['subcategory_name']; ?>
+                                </span>
+                            </div>
+
                             <p class="text-gray-700 mb-4">
                                 <?php echo $proposal['description']; ?>
                             </p>

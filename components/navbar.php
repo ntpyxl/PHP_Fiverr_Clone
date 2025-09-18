@@ -9,7 +9,8 @@ $file = basename($filePath);
 
 $navbarTitle = [
     "freelancer" => "Freelancer Dashboard",
-    "client"     => "Client Dashboard"
+    "client"     => "Client Dashboard",
+    "admin"     => "Admin Client Dashboard",
 ];
 ?>
 
@@ -43,7 +44,7 @@ $navbarTitle = [
                 <?php } ?>
 
                 <?php if ($_SESSION['user_role'] == "Admin") { ?>
-                    <a href="<?php echo BASE_URL; ?>client/offers_sent.php" class="hover:text-gray-300">
+                    <a href="<?php echo BASE_URL; ?>admin/offers_sent.php" class="hover:text-gray-300">
                         Offers Submitted
                     </a>
 

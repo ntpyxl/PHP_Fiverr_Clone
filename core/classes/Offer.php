@@ -53,6 +53,8 @@ class Offer extends Database
                     proposals.proposer_id AS proposer_user_id,
                     pu.username AS proposer_username,
                     pu.contact_number AS proposer_contact_number,
+                    category.category_name,
+                    subcategory.subcategory_name,
                     proposals.description AS proposal_description,
                     proposals.image AS proposal_image,
                     proposals.min_price AS proposal_min_price,
@@ -66,6 +68,10 @@ class Offer extends Database
                     offers.offeror_id = ou.user_id
                 JOIN fiverr_clone_users pu ON 
                     proposals.proposer_id = pu.user_id
+                LEFT JOIN category ON
+                Proposals.category_id = category.category_id
+                LEFT JOIN subcategory ON
+                Proposals.subcategory_id = subcategory.subcategory_id
                 WHERE offers.offeror_id = ? 
                 ORDER BY Offers.date_added DESC";
         return $this->executeQuery($sql, [$offeror_id]);
@@ -76,7 +82,6 @@ class Offer extends Database
         $sql = "UPDATE Offers SET description = ? WHERE Offer_id = ?";
         return $this->executeNonQuery($sql, [$description, $offer_id]);
     }
-
 
     /**
      * Deletes an Offer.
