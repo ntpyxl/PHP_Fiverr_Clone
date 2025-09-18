@@ -2,7 +2,6 @@ $('#categorySelect').on('change', function() {
     refreshSubcategoryOptions();
 })
 
-
 function refreshSubcategoryOptions() {
     const formData = {
         category_id: $('#categorySelect').val(),

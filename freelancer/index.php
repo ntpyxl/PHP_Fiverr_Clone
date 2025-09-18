@@ -63,7 +63,6 @@ if (!$userObj->isLoggedIn()) {
                             </div>
                         </div>
 
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium mb-1">Minimum Price</label>
@@ -121,6 +120,17 @@ if (!$userObj->isLoggedIn()) {
                         <img src="<?php echo '../images/' . $proposal['image']; ?>"
                             alt="Proposal Image"
                             class="w-full h-80 object-contain border border-gray-400 rounded mt-4">
+
+                        <div class="mt-2 flex items-center space-x-2">
+                            <span class="font-medium text-gray-600">Category:</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                                <?php echo $proposal['category_name']; ?>
+                            </span>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                                <?php echo $proposal['subcategory_name']; ?>
+                            </span>
+                        </div>
+
 
                         <p class="mt-2 text-gray-700"><?php echo $proposal['description']; ?></p>
 

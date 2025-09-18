@@ -53,6 +53,16 @@ if (!$userObj->isLoggedIn()) {
                         alt="Proposal Image"
                         class="w-full h-80 object-contain border border-gray-400 rounded mt-4">
 
+                    <div class="mt-2 flex items-center space-x-2">
+                        <span class="font-medium text-gray-600">Category:</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                            <?php echo $proposal['category_name']; ?>
+                        </span>
+                        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                            <?php echo $proposal['subcategory_name']; ?>
+                        </span>
+                    </div>
+
                     <p class="mt-2 text-gray-700"><?php echo $proposal['description']; ?></p>
 
                     <h4 class="mt-3 font-semibold text-gray-800">
@@ -61,6 +71,7 @@ if (!$userObj->isLoggedIn()) {
 
                     <div class="flex mt-2 justify-end space-x-3">
                         <button
+                            data-subcategory-id="<?php echo $proposal['subcategory_id']; ?>"
                             class="editProposalButton bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded cursor-pointer">
                             Edit
                         </button>
@@ -78,6 +89,41 @@ if (!$userObj->isLoggedIn()) {
                     </div>
 
                     <form action="../core/handleForms.php" method="POST" class="updateProposalForm hidden mt-6 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Description</label>
+                            <input type="hidden" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
+                            <textarea name="description"
+                                class="w-full border rounded px-3 py-2"><?php echo $proposal['description']; ?></textarea>
+                        </div>
+
+                        <div class="categoryForm grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Category</label>
+                                <select name="category" required
+                                    class="categorySelect w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                                    <option value="" disabled>Select a category</option>
+
+                                    <?php foreach ($categoryObj->getCategories() as $category) { ?>
+                                        <option
+                                            value="<?php echo $category['category_id']; ?>"
+                                            <?php if ($category['category_id'] == $proposal['category_id']) { ?>
+                                            selected
+                                            <?php } ?>>
+                                            <?php echo $category['category_name']; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Subcategory</label>
+                                <select name="subcategory" required
+                                    class="subcategorySelect w-full border rounded px-3 py-2 focus:ring focus:ring-blue-300">
+                                    <option value="" disabled>Select a subcategory</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium mb-1">Minimum Price</label>
@@ -92,12 +138,7 @@ if (!$userObj->isLoggedIn()) {
                                     class="w-full border rounded px-3 py-2">
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1">Description</label>
-                            <input type="hidden" name="proposal_id" value="<?php echo $proposal['proposal_id']; ?>">
-                            <textarea name="description"
-                                class="w-full border rounded px-3 py-2"><?php echo $proposal['description']; ?></textarea>
-                        </div>
+
                         <button type="submit"
                             name="updateProposalBtn"
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer">

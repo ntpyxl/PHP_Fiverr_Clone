@@ -116,10 +116,12 @@ if (isset($_POST['insertNewProposalBtn'])) {
 }
 
 if (isset($_POST['updateProposalBtn'])) {
-	$min_price = $_POST['min_price'];
-	$max_price = $_POST['max_price'];
 	$proposal_id = $_POST['proposal_id'];
 	$description = htmlspecialchars($_POST['description']);
+	$category_id = $_POST['category'];
+	$subcategory_id = $_POST['subcategory'];
+	$min_price = $_POST['min_price'];
+	$max_price = $_POST['max_price'];
 	if ($proposalObj->updateProposal($category_id, $subcategory_id, $description, $min_price, $max_price, $proposal_id)) {
 		$_SESSION['status'] = "200";
 		$_SESSION['message'] = "Proposal updated successfully!";

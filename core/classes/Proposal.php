@@ -29,13 +29,36 @@ class Proposal extends Database
     public function getProposals($id = null)
     {
         if ($id) {
-            $sql = "SELECT * FROM Proposals JOIN fiverr_clone_users on Proposals.proposer_id = fiverr_clone_users.user_id WHERE Proposal_id = ?";
+            $sql = "SELECT 
+                    Proposals.*,
+                    category.category_name,
+                    subcategory.subcategory_name,
+                    fiverr_clone_users.*,
+                    Proposals.date_added AS proposals_date_added
+                    FROM Proposals
+                    JOIN fiverr_clone_users ON
+                    Proposals.proposer_id = fiverr_clone_users.user_id
+                    LEFT JOIN category ON
+                    Proposals.category_id = category.category_id
+                    LEFT JOIN subcategory ON
+                    Proposals.subcategory_id = subcategory.subcategory_id
+                    WHERE Proposal_id = ?
+                    ORDER BY Proposals.date_added DESC";
             return $this->executeQuerySingle($sql, [$id]);
         }
-        $sql = "SELECT Proposals.*, fiverr_clone_users.*, 
+        $sql = "SELECT
+                Proposals.*,
+                category.category_name,
+                subcategory.subcategory_name,
+                fiverr_clone_users.*,
                 Proposals.date_added AS proposals_date_added
-                FROM Proposals JOIN fiverr_clone_users ON 
+                FROM Proposals
+                JOIN fiverr_clone_users ON 
                 Proposals.proposer_id = fiverr_clone_users.user_id
+                LEFT JOIN category ON
+                Proposals.category_id = category.category_id
+                LEFT JOIN subcategory ON
+                Proposals.subcategory_id = subcategory.subcategory_id
                 ORDER BY Proposals.date_added DESC";
         return $this->executeQuery($sql);
     }
@@ -43,10 +66,18 @@ class Proposal extends Database
 
     public function getProposalsByUserID($user_id)
     {
-        $sql = "SELECT Proposals.*, fiverr_clone_users.*, 
+        $sql = "SELECT
+                Proposals.*,
+                category.category_name,
+                subcategory.subcategory_name,
+                fiverr_clone_users.*, 
                 Proposals.date_added AS proposals_date_added
                 FROM Proposals JOIN fiverr_clone_users ON 
                 Proposals.proposer_id = fiverr_clone_users.user_id
+                LEFT JOIN category ON
+                Proposals.category_id = category.category_id
+                LEFT JOIN subcategory ON
+                Proposals.subcategory_id = subcategory.subcategory_id
                 WHERE proposals.proposer_id = ?
                 ORDER BY Proposals.date_added DESC";
         return $this->executeQuery($sql, [$user_id]);
