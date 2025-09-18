@@ -75,6 +75,7 @@ if (!$userObj->isLoggedIn()) {
             <?php } ?>
         </div>
     </div>
+
 </body>
 
 </html>

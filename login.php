@@ -39,21 +39,18 @@
             unset($_SESSION['status']);
             ?>
 
-            <!-- Email -->
             <div>
                 <label for="email" class="block text-gray-700 font-medium">Email</label>
                 <input type="email" id="email" name="email" required
                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
-            <!-- Password -->
             <div>
                 <label for="password" class="block text-gray-700 font-medium">Password</label>
                 <input type="password" id="password" name="password" required
                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
-            <!-- Submit -->
             <div class="flex justify-end">
                 <input type="submit" name="loginUserBtn" value="Login"
                     class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 cursor-pointer transition">

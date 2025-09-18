@@ -92,7 +92,7 @@ class User extends Database
     public function isAdmin()
     {
         $this->startSession();
-        return isset($_SESSION['is_client']) && $_SESSION['is_client'];
+        return isset($_SESSION['user_role']) && $_SESSION['user_role'] == "Admin";
     }
 
     /**

@@ -29,7 +29,6 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-            <!-- Client Card -->
             <div class="bg-white rounded-lg shadow p-6 flex flex-col">
                 <h1 class="text-2xl font-bold mb-3">Are you looking for a talent?</h1>
                 <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=1171&auto=format&fit=crop"
@@ -43,7 +42,6 @@
                 </a>
             </div>
 
-            <!-- Freelancer Card -->
             <div class="bg-white rounded-lg shadow p-6 flex flex-col">
                 <h1 class="text-2xl font-bold mb-3">Are you looking for a job?</h1>
                 <img src="https://plus.unsplash.com/premium_photo-1661582394864-ebf82b779eb0?q=80&w=1170&auto=format&fit=crop"

@@ -42,6 +42,16 @@ $navbarTitle = [
                     </a>
                 <?php } ?>
 
+                <?php if ($_SESSION['user_role'] == "Admin") { ?>
+                    <a href="<?php echo BASE_URL; ?>client/offers_sent.php" class="hover:text-gray-300">
+                        Offers Submitted
+                    </a>
+
+                    <a href="<?php echo BASE_URL; ?>admin/manage_categories.php" class="hover:text-gray-300">
+                        Manage Categories
+                    </a>
+                <?php } ?>
+
                 <?php if ($_SESSION['user_role'] == "Freelancer") { ?>
                     <a href="freelancer_proposals.php" class="hover:text-gray-300">
                         Your Proposals

@@ -107,7 +107,7 @@ if (!$userObj->isLoggedIn()) {
             </div>
         </div>
     </div>
-    </div>
+
 </body>
 
 </html>

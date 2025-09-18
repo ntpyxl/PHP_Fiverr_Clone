@@ -13,6 +13,8 @@ CREATE TABLE fiverr_clone_users (
 CREATE TABLE proposals (
     proposal_id INT AUTO_INCREMENT PRIMARY KEY,
     proposer_id INT,
+    category_id INT,
+    subcategory_id INT,
     description TEXT,
     image TEXT,
     min_price INT,
@@ -30,4 +32,16 @@ CREATE TABLE offers (
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (offeror_id) REFERENCES fiverr_clone_users(user_id),
     FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id)
+);
+
+CREATE TABLE category (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE subcategory (
+    subcategory_id INT AUTO_INCREMENT PRIMARY KEY,
+    parent_category_id INT NOT NULL,
+    subcategory_name VARCHAR(128) NOT NULL,
+    FOREIGN KEY (parent_category_id) REFERENCES category(category_id)
 );

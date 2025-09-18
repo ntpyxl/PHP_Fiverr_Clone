@@ -39,7 +39,6 @@ $userInfo = $userObj->getUsers($_SESSION['user_id']);
         <section class="bg-white shadow rounded-lg p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                <!-- Left: User Info -->
                 <div class="text-center md:text-left">
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                         alt="Profile Picture"
@@ -56,7 +55,6 @@ $userInfo = $userObj->getUsers($_SESSION['user_id']);
                     </h3>
                 </div>
 
-                <!-- Right: Edit Form -->
                 <form action="core/handleForms.php" method="POST" enctype="multipart/form-data" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium mb-1">Username</label>

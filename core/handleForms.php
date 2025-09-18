@@ -48,7 +48,7 @@ if (isset($_POST['loginUserBtn'])) {
 		if ($userObj->loginUser($email, $password)) {
 			if ($_SESSION['user_role'] == "Freelancer") {
 				header("Location: ../freelancer/");
-			} else if ($_SESSION['user_role'] == "Client") {
+			} else if ($_SESSION['user_role'] == "Client" || $_SESSION['user_role'] == "Admin") {
 				header("Location: ../client/");
 			}
 		} else {
@@ -180,5 +180,26 @@ if (isset($_POST['deleteOfferBtn'])) {
 		$_SESSION['message'] = "Offer deleted successfully!";
 		$_SESSION['status'] = '200';
 		header("Location: ../client/");
+	}
+}
+
+if (isset($_POST['insertCategoryButton'])) {
+	$category = $_POST['category'];
+
+	if ($categoryObj->addCategory($category)) {
+		$_SESSION['message'] = "Category created successfully!";
+		$_SESSION['status'] = '200';
+		header("Location: ../admin/manage_categories.php");
+	}
+}
+
+if (isset($_POST['insertSubcategoryButton'])) {
+	$parent_category_id = $_POST['parent_category_id'];
+	$subcategory = $_POST['subcategory'];
+
+	if ($categoryObj->addSubcategory($subcategory, $parent_category_id)) {
+		$_SESSION['message'] = "Subcategory created successfully!";
+		$_SESSION['status'] = '200';
+		header("Location: ../admin/manage_categories.php");
 	}
 }

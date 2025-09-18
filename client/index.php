@@ -21,7 +21,7 @@ if (!$userObj->isLoggedIn()) {
 <body class="bg-gray-50">
     <?php include '../components/navbar.php'; ?>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-4 py-8">
         <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6">
             Hello there <span class="text-green-600"><?php echo $_SESSION['username']; ?></span>!
             Here are some proposals you could offer to!
@@ -116,7 +116,7 @@ if (!$userObj->isLoggedIn()) {
                 </div>
             </div>
         <?php endforeach; ?>
-    </main>
+    </div>
 
     <script src="../core/scripts/offerCard.js"></script>
 </body>
