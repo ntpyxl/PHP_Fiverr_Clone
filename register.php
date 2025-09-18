@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="core/styles.css">
 
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
     <style>
         body {
             background-image: url("https://img.freepik.com/free-vector/winter-blue-pink-gradient-background-vector_53876-117275.jpg?t=st=1746104039~exp=1746107639~hmac=2f238261c795cf2f54851b4f9f1b1bda806f8a408384522f6de69dcd5115750f&w=1380");

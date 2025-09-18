@@ -37,6 +37,38 @@ $navbarTitle = [
 
                 <a href="<?php echo BASE_URL; ?>profile.php" class="hover:text-gray-300">Profile</a>
 
+                <div class="relative">
+                    <button id="categoriesBtn" class="hover:text-gray-300 flex items-center space-x-1 cursor-pointer">
+                        <span>Categories</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <div id="categoriesMenu" class="absolute left-0 mt-2 w-56 bg-white text-black rounded shadow-lg hidden z-50">
+                        <?php foreach ($categoryObj->getCategories() as $category) { ?>
+                            <div class="border-b border-gray-200">
+                                <a href="<?php echo BASE_URL; ?>proposals.php?category=<?php echo $category['category_id']; ?>"
+                                    class="block px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
+                                    <?php echo $category['category_name']; ?>
+                                </a>
+
+                                <ul class="pl-6 pb-2 text-sm text-gray-700">
+                                    <?php foreach ($categoryObj->getSubcategoryByParentId($category['category_id']) as $sub) { ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL; ?>proposals.php?category=<?php echo $category['category_id']; ?>&subcategory=<?php echo $sub['subcategory_id']; ?>"
+                                                class="block px-2 py-1 hover:bg-gray-100 cursor-pointer">
+                                                <?php echo $sub['subcategory_name']; ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+
                 <?php if ($_SESSION['user_role'] == "Client") { ?>
                     <a href="<?php echo BASE_URL; ?>client/offers_sent.php" class="hover:text-gray-300">
                         Offers Submitted
@@ -47,7 +79,6 @@ $navbarTitle = [
                     <a href="<?php echo BASE_URL; ?>admin/offers_sent.php" class="hover:text-gray-300">
                         Offers Submitted
                     </a>
-
                     <a href="<?php echo BASE_URL; ?>admin/manage_categories.php" class="hover:text-gray-300">
                         Manage Categories
                     </a>
@@ -57,7 +88,6 @@ $navbarTitle = [
                     <a href="freelancer_proposals.php" class="hover:text-gray-300">
                         Your Proposals
                     </a>
-
                     <a href="offer_inbox.php" class="hover:text-gray-300">
                         Offer Inbox
                     </a>
@@ -65,9 +95,12 @@ $navbarTitle = [
 
                 <a href="<?php echo BASE_URL; ?>core/handleForms.php?logoutUserBtn=1" class="hover:text-red-400">Logout</a>
             </div>
+
         </div>
     </div>
 </nav>
+
+<script src="<?php echo BASE_URL; ?>core/scripts/navbarDropdown.js"></script>
 
 <script>
     document.getElementById("menu-toggle").addEventListener("click", function() {

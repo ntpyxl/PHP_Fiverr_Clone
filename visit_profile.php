@@ -16,6 +16,8 @@ $userInfo = $userObj->getUsers($_GET['user_id']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="core/styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 
 <body class="font-sans bg-gray-50">
