@@ -170,8 +170,6 @@ if (isset($_POST['insertOfferBtn'])) {
 		return $url;
 	}
 
-
-	$isAlreadyOffered = false;
 	$offersInProposal = $offerObj->getOffersByProposalID($proposal_id);
 
 	foreach ($offersInProposal as $offer) {
