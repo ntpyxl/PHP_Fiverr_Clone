@@ -83,6 +83,44 @@ class Proposal extends Database
         return $this->executeQuery($sql, [$user_id]);
     }
 
+    public function getProposalsByCategoryID($category_id)
+    {
+        $sql = "SELECT
+                Proposals.*,
+                category.category_name,
+                subcategory.subcategory_name,
+                fiverr_clone_users.*, 
+                Proposals.date_added AS proposals_date_added
+                FROM Proposals JOIN fiverr_clone_users ON 
+                Proposals.proposer_id = fiverr_clone_users.user_id
+                LEFT JOIN category ON
+                Proposals.category_id = category.category_id
+                LEFT JOIN subcategory ON
+                Proposals.subcategory_id = subcategory.subcategory_id
+                WHERE category.category_id = ?
+                ORDER BY Proposals.date_added DESC";
+        return $this->executeQuery($sql, [$category_id]);
+    }
+
+    public function getProposalsBySubcategoryID($subcategory_id)
+    {
+        $sql = "SELECT
+                Proposals.*,
+                category.category_name,
+                subcategory.subcategory_name,
+                fiverr_clone_users.*, 
+                Proposals.date_added AS proposals_date_added
+                FROM Proposals JOIN fiverr_clone_users ON 
+                Proposals.proposer_id = fiverr_clone_users.user_id
+                LEFT JOIN category ON
+                Proposals.category_id = category.category_id
+                LEFT JOIN subcategory ON
+                Proposals.subcategory_id = subcategory.subcategory_id
+                WHERE subcategory.subcategory_id = ?
+                ORDER BY Proposals.date_added DESC";
+        return $this->executeQuery($sql, [$subcategory_id]);
+    }
+
     /**
      * Updates an Proposal.
      * @param int $id The Proposal ID to update.
